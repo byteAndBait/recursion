@@ -30,11 +30,11 @@ export function mergeSort(array) {
     const leftHalf = mergeSort(splittedArray[0])
     const rightHalf = mergeSort(splittedArray[1])
     const sortedArray = []
-    while (leftHalf.length != 0) {
+    while (leftHalf.length) {
         if (leftHalf[0] <= rightHalf[0] || rightHalf[0] == undefined) {
             sortedArray.push(leftHalf[0])
             leftHalf.shift()
-        } else if (rightHalf[0] <= leftHalf[0] || leftHalf[0] == undefined) {
+        } else{
             sortedArray.push(rightHalf[0])
             rightHalf.shift()
         }
