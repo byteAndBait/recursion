@@ -22,23 +22,51 @@ function splitArray(arr) {
     let half = Math.ceil(arr.length / 2)
     return [arr.slice(0, half), arr.slice(half, arr.length)]
 }
+// export function mergeSort(array) {
+//     if (array.length <= 1) {
+//         return array;
+//     }
+//     const splittedArray = splitArray(array)
+//     const leftHalf = mergeSort(splittedArray[0])
+//     const rightHalf = mergeSort(splittedArray[1])
+//     const sortedArray = []
+//     while (leftHalf.length) {
+//         if (leftHalf[0] <= rightHalf[0] || rightHalf[0] == undefined) {
+//             sortedArray.push(leftHalf[0])
+//             leftHalf.shift()
+//         } else{
+//             sortedArray.push(rightHalf[0])
+//             rightHalf.shift()
+//         }
+//     }
+//     sortedArray.push(...rightHalf)
+//     return sortedArray
+// } O(n2)
+
+
+function merge(left, right) {
+    let l = 0
+    let r = 0;
+    const result = []
+    while (l < left.length && r < right.length) {
+        if (left[l] <= right[r]) {
+            result.push(left[l])
+            l++
+        } else {
+            result.push(right[r])
+            r++
+        }
+    }
+    return [...result, ...left.slice(l), ...right.slice(r)];
+
+}
 export function mergeSort(array) {
     if (array.length <= 1) {
         return array;
     }
     const splittedArray = splitArray(array)
-    const leftHalf = mergeSort(splittedArray[0])
-    const rightHalf = mergeSort(splittedArray[1])
-    const sortedArray = []
-    while (leftHalf.length) {
-        if (leftHalf[0] <= rightHalf[0] || rightHalf[0] == undefined) {
-            sortedArray.push(leftHalf[0])
-            leftHalf.shift()
-        } else{
-            sortedArray.push(rightHalf[0])
-            rightHalf.shift()
-        }
-    }
-    sortedArray.push(...rightHalf)
-    return sortedArray
+    const sortedLeft = mergeSort(splittedArray[0])
+    const sortedRight = mergeSort(splittedArray[1])
+
+    return merge(sortedLeft, sortedRight)
 }
